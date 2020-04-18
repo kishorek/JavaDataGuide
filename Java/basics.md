@@ -97,7 +97,7 @@ OpenJDK is released under license `GPL v2` wherein Oracle JDK is licensed under 
 Oracle JDK has Flight Recorder, Java Mission Control, and Application Class-Data Sharing features, while OpenJDK has the Font Renderer feature.
 
 ## Datatypes
-![Data Types](images/Java_Datatypes.png?raw=true "Data Types")
+![Data Types](../images/Java_Datatypes.png?raw=true "Data Types")
 
 ### Character vs String
 char (Character) datatype (primitive) is a single character surrounded by single quotes. It occupies 2 bytes of memory size. String is a non primitive Object, it is usually one or more characters surrounded by double quotes.
