@@ -3,10 +3,8 @@
 - [What is JRE, JDK & JVM?](#what-is-jre-jdk--jvm)
 - [Battle of JDKs. OpenJDK vs Oracle JDK](#battle-of-jdks-openjdk-vs-oracle-jdk)
 - [Datatypes](#datatypes)
-  - [Details](#details)
-  - [Character constant vs String Constant](#character-constant-vs-string-constant)
+  - [Character vs String](#character-vs-string)
   - [Boxing & Unboxing](#boxing--unboxing)
-  - [StingBuilder vs StringBuffer and immutability](#stingbuilder-vs-stringbuffer-and-immutability)
 - [Language features](#language-features)
   - [Constructors](#constructors)
   - [Can the constructor be overridden?](#can-the-constructor-be-overridden)
@@ -17,6 +15,9 @@
   - [Difference between instance variables & local variables](#difference-between-instance-variables--local-variables)
   - [Object creation](#object-creation)
   - [Static vs instance methods](#static-vs-instance-methods)
+  - [Interning](#interning)
+  - [Mutable & Immutable](#mutable--immutable)
+  - [StingBuilder vs StringBuffer and immutability](#stingbuilder-vs-stringbuffer-and-immutability)
   - [equals](#equals)
   - [hashCode](#hashcode)
   - [equals + hashCode](#equals--hashcode)
@@ -68,13 +69,13 @@ Java is secure by design. Lots of opensource libraries, big and mature community
 pic-here
 
 JRE - Java Runtime Environment  
-JRE is an environment which is designed to run programs. It contains the class libraries, loader class, and JVM.
+JRE is an environment which is designed to run programs. It contains the class libraries, loader class, and JVM. It is platform dependent.
 
 JVM - Java Virtual Machine  
-JVM is an engine that provides a runtime environment to drive the Java Code or applications. It converts Java bytecode into machine language. JVM is a part of Java Run Environment (JRE). It cannot be separately downloaded and installed. To install JVM, you need to install JRE. The full form of JVM is Java Virtual Machine.
+JVM is an engine that provides a runtime environment to drive the Java Code or applications. It converts Java bytecode into machine language. JVM is a part of Java Run Environment (JRE). It cannot be separately downloaded and installed. To install JVM, you need to install JRE. The full form of JVM is Java Virtual Machine. It is platform independent.
 
 JDK - Java Developer Kit  
-JDK is a software development environment used for making applets and Java applications
+JDK is a software development environment used for making applets and Java applications. It contains developing, debuggin & monitoring libraries. It is platform dependent.
 
 
 ```
@@ -85,12 +86,44 @@ rt - Run Time
 ```
 
 ## Battle of JDKs. OpenJDK vs Oracle JDK
+Sun microsystems owned the JDK until Oracle acquired Sun microsystems. So Sun JDK has become Oracle JDK after the acquisition. Oracle maintains the Oracle JDK.
+
+OpenJDK is an open source implementation of the Java Standard Edition platform with contribution from Oracle and open Java community. OpenJDK was the reference implementation for Java 7, maintained by Oracle. 
+
+Oracle JDK is built from the OpenJDK, so technically there are no much differences apart from the enterprise support and bug fixes Oracle JDK provides. However Oracle SDK provides better performance over OpenJDK.
+
+OpenJDK is released under license `GPL v2` wherein Oracle JDK is licensed under `Oracle Binary Code License Agreement`.
+
+Oracle JDK has Flight Recorder, Java Mission Control, and Application Class-Data Sharing features, while OpenJDK has the Font Renderer feature.
 
 ## Datatypes
-### Details
-### Character constant vs String Constant
+![Data Types](images/Java_Datatypes.png?raw=true "Data Types")
+
+### Character vs String
+char (Character) datatype (primitive) is a single character surrounded by single quotes. It occupies 2 bytes of memory size. String is a non primitive Object, it is usually one or more characters surrounded by double quotes.
+
+```
+Eg:
+char -> 'a','1','.' etc
+String -> "a", "a is an English alphabet", "1 + 1 = 2"
+```
+
 ### Boxing & Unboxing
-### StingBuilder vs StringBuffer and immutability
+`Autoboxing` is the automatic conversion that the Java compiler makes between the primitive types and their corresponding object wrapper classes. For example, converting an int to an Integer, a double to a Double, and so on. If the conversion goes the other way, this is called `unboxing`.
+
+|Primitive type|Wrapper class|
+|--- |--- |
+|boolean|Boolean|
+|byte|Byte|
+|char|Character|
+|float|Float|
+|int|Integer|
+|long|Long|
+|short|Short|
+|double|Double|
+
+Since Java is a Object Oriented language, in order to utilize the Object level features like Collections it is necessary for the primitive datatypes need to be converted to Objects. Java provides Autoboxing to facilitate this.
+
 ## Language features
 ### Constructors
 ### Can the constructor be overridden?
@@ -101,6 +134,35 @@ rt - Run Time
 ### Difference between instance variables & local variables
 ### Object creation
 ### Static vs instance methods
+### Interning
+String Interning is a method of storing only one copy of each distinct String Value, which must be immutable.
+
+In Java, String class has a public method `intern()` that returns a canonical representation(Standaridized representation) for the string object. Java’s String class privately maintains a pool of strings, where String literals are automatically interned.
+
+When the `invoke()` method is invoked an a String object, if the String literal is available in the pool, the reference of the object is returned from the pool. If it is not available in the pool, the object is added to the pool and the reference returned.
+
+But when a String object is created with `new String()` a new object is created in Heap memory and returned. So this way of String initialization is mostly discouraged on performance grounds. 
+
+### Mutable & Immutable
+When an object can change it's state, it is called a mutable Object. (In X-Men, people can can alter their form or abilities are called mutables). 
+
+Immutability provides Security, Performance & Thread Safety.
+
+```
+Tip:
+Normally immutability in java is achieved through following steps :
+
+1. Don’t provide mutator methods for any field
+2. Make all fields final and private
+3. Don’t allow subclasses by declaring the class final itself
+4. Return deep cloned objects with copied content for all mutable fields in class
+```
+
+### StingBuilder vs StringBuffer and immutability
+In Java String is an immutable object, i.e. everytime there is any change made to the String object, a new object will be created (or referred).
+
+
+
 ### equals
 ### hashCode
 ### equals + hashCode
