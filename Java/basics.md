@@ -14,7 +14,9 @@
   - [Difference between interface & abstract class](#difference-between-interface--abstract-class)
   - [Difference between instance variables & local variables](#difference-between-instance-variables--local-variables)
   - [Object creation](#object-creation)
-  - [Static vs instance methods](#static-vs-instance-methods)
+  - [Access Modifiers](#access-modifiers)
+  - [Other modifiers](#other-modifiers)
+  - [Static](#static)
   - [Interning](#interning)
   - [Mutable & Immutable](#mutable--immutable)
   - [StingBuilder vs StringBuffer and immutability](#stingbuilder-vs-stringbuffer-and-immutability)
@@ -26,7 +28,6 @@
   - [System object](#system-object)
   - [Deep copy vs Shallow copy](#deep-copy-vs-shallow-copy)
   - [References](#references)
-  - [Access Modifiers](#access-modifiers)
   - [Decompiling](#decompiling)
 - [Serialization](#serialization)
 - [I/O](#io)
@@ -133,7 +134,51 @@ Since Java is a Object Oriented language, in order to utilize the Object level f
 ### Difference between interface & abstract class
 ### Difference between instance variables & local variables
 ### Object creation
-### Static vs instance methods
+### Access Modifiers
+Java uses different access modfiers to set the access levels on variables, methods, constructors and classes. 
+
+* Visible to the package, the default. No modifiers are needed.
+* Visible to the class only - `private`
+* Visible to the world - `public`
+* Visible to the package and all subclasses - `protected`
+
+### Other modifiers
+Apart from the access modifiers, the below keywords aka Non-Access modifiers can be used to achieve different functionalities.
+* Creating class methods and variables - `static`
+* Finalizing the implementations of classes, methods, and variables - `final`
+* Creating abstract classes and methods - `abstract`
+* For threads - `synchronized` & `volatile`
+
+### Static
+Static variables are also known as class variables. These variables exist independently of creation of instances. They can be accessed directly via classes. Regardless of how many instances of a class is created, there will always be a single copy static variable exist. They can be accessed using `ClassName.variable`.
+
+Similar to variables, methods also can be marked as static to make them class methods. They can be called using `ClassName.method()`.
+
+Since static methods are tied to class, it can not use any instance variable or methods (non static). But non-static methods can access or call static variables/methods.
+
+Static block is used for initializing the static variables.This block gets executed when the class is loaded in the memory. A class can have multiple Static blocks, which will execute in the same sequence in which they have been written into the program
+
+```java
+
+class StaticSample{
+  private static final String ENDPOINT = "/test";
+
+  //Static block
+  {
+
+  }
+
+  public static String fetchEndpoint(String baseUrl){
+    return baseUrl + ENDPOINT;
+  }
+
+  public void printEndpoint(){
+    System.out.println(ENDPOINT)
+  }
+}
+
+```
+
 ### Interning
 String Interning is a method of storing only one copy of each distinct String Value, which must be immutable.
 
@@ -159,7 +204,7 @@ Normally immutability in java is achieved through following steps :
 ```
 
 ### StingBuilder vs StringBuffer and immutability
-In Java String is an immutable object, i.e. everytime there is any change made to the String object, a new object will be created (or referred).
+
 
 
 
@@ -171,7 +216,7 @@ In Java String is an immutable object, i.e. everytime there is any change made t
 ### System object
 ### Deep copy vs Shallow copy
 ### References
-### Access Modifiers
+
 ### Decompiling
 ## Serialization
 ## I/O
