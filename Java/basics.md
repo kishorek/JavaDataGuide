@@ -139,8 +139,60 @@ Overloading - When two or more methods in a class have the same method name but 
 Overriding - Having two methods with the same method name and parameters (i.e., method signature). This will be used between parent and subclasses. Where a subclass can override the method available in the parent to modify the purpose of the method. The actual method can always be called from the subclass using `super`
 
 ### Difference between interface & abstract class
+
+|Abstract class|Interface|
+|--- |--- |
+|1) Abstract class can have abstract and non-abstract methods.|Interface can have only abstract methods. (Since Java 8, it can have default and static methods also.)|
+|2) Abstract class doesn't support multiple inheritance.|Interface supports multiple inheritance.|
+|3) Abstract class can have final, non-final, static and non-static variables.|Interface has only static and final variables.|
+|4) Abstract class can provide the implementation of interface.|Interface can't provide the implementation of abstract class.|
+|5) The abstract keyword is used to declare abstract class.|The interface keyword is used to declare interface.|
+|6) An abstract class can extend another Java class and implement multiple Java interfaces.|An interface can extend another Java interface only.|
+|7) An abstract class can be extended using keyword "extends".|An interface can be implemented using keyword "implements".|
+|8) A Java abstract class can have class members like private, protected, etc.|Members of a Java interface are public by default.|
+|9)Example: public abstract class Shape{public abstract void draw();}|Example: public interface Drawable{void draw();}|
+
+Ref: [https://www.javatpoint.com/difference-between-abstract-class-and-interface]()
+
+After Java 8, the difference between them has been changed. Mainly since interfaces now can have default & static methods.
+```java
+public interface MyInterface {
+     
+    // regular interface methods
+     
+    default void defaultMethod() {
+        // default method implementation
+    }
+
+    static double convertToFarenheit(double celcius) {
+        return (celcius * 9/5) + 32;
+    }
+}
+
+//Usage:
+MyInterface.convertToFarenheit(40)
+
+MyClass object = new MyClass(); //MyClass implements MyInterface
+object.defaultMethod()
+
+```
+
 ### Difference between instance variables & local variables
+Local variables:  
+They are scoped inside a method/block. Outside the method or block they do not exist. They do not have any default value.
+
+Instance variables:
+They are bound to an object always. They are declared in a class. The access is restricted by the access modifiers. Every instance of the class will have their own copy of variables. i.e. Changing the variable on one object doesn't change it on another object. Whenever an object is allocated in heap, a slot is allocated for this variable. So its lifecycle starts and ends along with the object.
+
 ### Object creation
+An object is said to be created when the class is instantiated (mostly by using `new`, some exceptions are String literals, auto boxing of primitive data etc). The below process happens during the object creation.
+
+1. Memory is allocated.
+2. Fields are instantiated to their default values.
+3. First line of the corresponding constructor is executed.
+4. The instance initializer is executed and the fields are initialized to their requested values.
+5. The rest of the constructor code is executed
+
 ### Access Modifiers
 Java uses different access modfiers to set the access levels on variables, methods, constructors and classes. 
 
@@ -187,6 +239,15 @@ class StaticSample{
 ```
 
 ### Deconstructing the main](#deconstructing-the-main)
+Any java class that has to be executed needs an entrypoint. A class should contain `main()` if the class wants to initiate the execution.
+
+```java
+public static void main(String[] args) {
+
+}
+```
+
+The above is a sample `main()`. `public` access modifier exposes the method outside the current package. `static` enables this method can be executed without instantiating any class. `main()` method can take string arguments which can be passed as command line parameters during the execution.
 
 ### Interning
 String Interning is a method of storing only one copy of each distinct String Value, which must be immutable.
@@ -215,11 +276,89 @@ Normally immutability in java is achieved through following steps :
 ### StingBuilder vs StringBuffer and immutability
 
 
-
-
 ### equals
+Every object in Java has this method to compare it with another object. By default, it checks the reference. If both the object has the same references, it will be decided equal. But there are scenarios where we want to define the equality by checking the instance variables, that is when we will override this method.
+
+As per Java SE, the below is the contract that any `equals()` should satisfy.
+
+* It is reflexive: for any non-null reference value x, x.equals(x) should return true.
+* It is symmetric: for any non-null reference values x and y, x.equals(y) should return true if and only if y.equals(x) returns true.
+* It is transitive: for any non-null reference values x, y, and z, if x.equals(y) returns true and y.equals(z) returns true, then x.equals(z) should return true.
+* It is consistent: for any non-null reference values x and y, multiple invocations of x.equals(y) consistently return true or consistently return false, provided no information used in equals comparisons on the objects is modified.
+For any non-null reference value x, x.equals(null) should return false.
+
+
+```java
+public class Car {
+    private int registrationNo;
+    private String model;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Car car = (Car) o;
+
+        return registrationNo == car.registrationNo;
+    }
+}
+```
+
 ### hashCode
+
+`hashCode()` returns an integer representation of the current instance of the class. 
+
+Similar to `equals()`, `hashCode()` also has the below contract.
+
+* Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no information used in equals comparisons on the object is modified. This integer need not remain consistent from one execution of an application to another execution of the same application.
+* If two objects are equal according to the `equals(Object)` method, then calling the hashCode method on each of the two objects must produce the same integer result.
+* It is not required that if two objects are unequal according to the `equals(java.lang.Object)` method, then calling the hashCode method on each of the two objects must produce distinct integer results. **However, the programmer should be aware that producing distinct integer results for unequal objects may improve the performance of hash tables.**
+
+
+```java
+public class Car {
+    private int registrationNo;
+    private String model;
+
+    @Override
+    public int hashCode() {
+        int result = registrationNo;
+        result = 31 * result + model.hashCode();
+        return result;
+    }
+}
+
+```
 ### equals + hashCode
+We should calculate `hashCode()` in consistent with the definition of equality for the class. Thus if we override the `equals()` method, we also have to override `hashCode()`. Mainly because the `equals()` and `hashCode()` should be aligned for checking equality and provide support for HashMap etc. All the modern IDEs provide an option to generate these 2 methods.
+
+```java
+public class Car {
+    private int registrationNo;
+    private String model;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Car car = (Car) o;
+
+        if (registrationNo != car.registrationNo) return false;
+        return model.equals(car.model);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = registrationNo;
+        result = 31 * result + model.hashCode();
+        return result;
+    }
+}
+
+```
+
 ### final
 ### Exception handling
 ### System object
