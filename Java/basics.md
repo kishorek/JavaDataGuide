@@ -9,14 +9,13 @@
   - [Constructors](#constructors)
   - [Can the constructor be overridden?](#can-the-constructor-be-overridden)
   - [Difference between overloading and overriding?](#difference-between-overloading-and-overriding)
-  - [Deconstructing the main](#deconstructing-the-main)](#deconstructing-the-maindeconstructing-the-main)
-  - [Accessing non-static member from static method](#accessing-non-static-member-from-static-method)
   - [Difference between interface & abstract class](#difference-between-interface--abstract-class)
   - [Difference between instance variables & local variables](#difference-between-instance-variables--local-variables)
   - [Object creation](#object-creation)
   - [Access Modifiers](#access-modifiers)
   - [Other modifiers](#other-modifiers)
   - [Static](#static)
+  - [Deconstructing the main](#deconstructing-the-main)](#deconstructing-the-maindeconstructing-the-main)
   - [Interning](#interning)
   - [Mutable & Immutable](#mutable--immutable)
   - [StingBuilder vs StringBuffer and immutability](#stingbuilder-vs-stringbuffer-and-immutability)
@@ -127,10 +126,18 @@ Since Java is a Object Oriented language, in order to utilize the Object level f
 
 ## Language features
 ### Constructors
+Constructors are special methods that are invoked during the object creation. Constructors look like normal methods except that they do return anything.
+
+By default all the Classes will have a default constuctor which takes no arguments. If we create any new constructor for a class with arguments, that will become the default constructor. i.e. Whenever we create an object of the class using `new` operator, the arguments should be passed. We can override this by providing an additional constructor with no argument. A class can have any number of constructors. We can use access modifiers on the constructors to set the access on who can instantiate the class (or create the object).
+
 ### Can the constructor be overridden?
+No. Overriding happens when a subclass has the same name, number/type of parameters, and the same return type as an instance method of the superclass. But constructors are special methods that are assigned to a class to be invoked during Object creation. Similarly they can not be inherited, though it can be accessed using `super`.
+
 ### Difference between overloading and overriding?
-### Deconstructing the main](#deconstructing-the-main)
-### Accessing non-static member from static method
+Overloading - When two or more methods in a class have the same method name but different parameters.
+
+Overriding - Having two methods with the same method name and parameters (i.e., method signature). This will be used between parent and subclasses. Where a subclass can override the method available in the parent to modify the purpose of the method. The actual method can always be called from the subclass using `super`
+
 ### Difference between interface & abstract class
 ### Difference between instance variables & local variables
 ### Object creation
@@ -178,6 +185,8 @@ class StaticSample{
 }
 
 ```
+
+### Deconstructing the main](#deconstructing-the-main)
 
 ### Interning
 String Interning is a method of storing only one copy of each distinct String Value, which must be immutable.
