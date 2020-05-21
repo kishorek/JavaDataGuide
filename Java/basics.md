@@ -23,10 +23,10 @@
   - [hashCode](#hashcode)
   - [equals + hashCode](#equals--hashcode)
   - [final](#final)
-  - [Exception handling](#exception-handling)
+  - [Pass by Reference or Pass by Value?](#pass-by-reference-or-pass-by-value)
   - [System object](#system-object)
   - [Deep copy vs Shallow copy](#deep-copy-vs-shallow-copy)
-  - [References](#references)
+  - [References **](#references)
   - [Decompiling](#decompiling)
 - [Serialization](#serialization)
 - [I/O](#io)
@@ -46,7 +46,7 @@ class Car extends Vehicle{
 
     public void drive(){
         // Drive the car
-    } 
+    }
 
     public void shiftGear(int gear){
         // Shift gear
@@ -57,7 +57,7 @@ class Car extends Vehicle{
 
 
 ## Why Java?
-Java achieves platform indepedency with JVM. So ideally a program written in one operating system can be run on any operating system with JVM in it. 
+Java achieves platform indepedency with JVM. So ideally a program written in one operating system can be run on any operating system with JVM in it.
 
 Java is a purely Object Oriented language, apart from the primitive data types and keywords pretty everything else is an object in java.
 
@@ -68,13 +68,13 @@ Java is secure by design. Lots of opensource libraries, big and mature community
 ## What is JRE, JDK & JVM?
 pic-here
 
-JRE - Java Runtime Environment  
+JRE - Java Runtime Environment
 JRE is an environment which is designed to run programs. It contains the class libraries, loader class, and JVM. It is platform dependent.
 
-JVM - Java Virtual Machine  
+JVM - Java Virtual Machine
 JVM is an engine that provides a runtime environment to drive the Java Code or applications. It converts Java bytecode into machine language. JVM is a part of Java Run Environment (JRE). It cannot be separately downloaded and installed. To install JVM, you need to install JRE. The full form of JVM is Java Virtual Machine. It is platform independent.
 
-JDK - Java Developer Kit  
+JDK - Java Developer Kit
 JDK is a software development environment used for making applets and Java applications. It contains developing, debuggin & monitoring libraries. It is platform dependent.
 
 
@@ -88,7 +88,7 @@ rt - Run Time
 ## Battle of JDKs. OpenJDK vs Oracle JDK
 Sun microsystems owned the JDK until Oracle acquired Sun microsystems. So Sun JDK has become Oracle JDK after the acquisition. Oracle maintains the Oracle JDK.
 
-OpenJDK is an open source implementation of the Java Standard Edition platform with contribution from Oracle and open Java community. OpenJDK was the reference implementation for Java 7, maintained by Oracle. 
+OpenJDK is an open source implementation of the Java Standard Edition platform with contribution from Oracle and open Java community. OpenJDK was the reference implementation for Java 7, maintained by Oracle.
 
 Oracle JDK is built from the OpenJDK, so technically there are no much differences apart from the enterprise support and bug fixes Oracle JDK provides. However Oracle SDK provides better performance over OpenJDK.
 
@@ -178,7 +178,7 @@ object.defaultMethod()
 ```
 
 ### Difference between instance variables & local variables
-Local variables:  
+Local variables:
 They are scoped inside a method/block. Outside the method or block they do not exist. They do not have any default value.
 
 Instance variables:
@@ -194,7 +194,7 @@ An object is said to be created when the class is instantiated (mostly by using 
 5. The rest of the constructor code is executed
 
 ### Access Modifiers
-Java uses different access modfiers to set the access levels on variables, methods, constructors and classes. 
+Java uses different access modfiers to set the access levels on variables, methods, constructors and classes.
 
 * Visible to the package, the default. No modifiers are needed.
 * Visible to the class only - `private`
@@ -256,10 +256,10 @@ In Java, String class has a public method `intern()` that returns a canonical re
 
 When the `invoke()` method is invoked an a String object, if the String literal is available in the pool, the reference of the object is returned from the pool. If it is not available in the pool, the object is added to the pool and the reference returned.
 
-But when a String object is created with `new String()` a new object is created in Heap memory and returned. So this way of String initialization is mostly discouraged on performance grounds. 
+But when a String object is created with `new String()` a new object is created in Heap memory and returned. So this way of String initialization is mostly discouraged on performance grounds.
 
 ### Mutable & Immutable
-When an object can change it's state, it is called a mutable Object. (In X-Men, people can can alter their form or abilities are called mutables). 
+When an object can change it's state, it is called a mutable Object. (In X-Men, people can can alter their form or abilities are called mutables).
 
 Immutability provides Security, Performance & Thread Safety.
 
@@ -307,7 +307,7 @@ public class Car {
 
 ### hashCode
 
-`hashCode()` returns an integer representation of the current instance of the class. 
+`hashCode()` returns an integer representation of the current instance of the class.
 
 Similar to `equals()`, `hashCode()` also has the below contract.
 
@@ -360,12 +360,121 @@ public class Car {
 ```
 
 ### final
-### Exception handling
+`final` is where everything is finalized and there is no change is allowed. A class can be marked as final to avoid being extended (methods can not be overloaded or overridden). For example, `String` class is marked as final. `String` class is designed to be immutable in nature. But its also marked as `final` to avoid being extended to destroy its immutability.
+
+Methods marked with `final` can not be overridden in the subclasses.
+
+`final` can be used to mark any instance variable as constant. `final` variables can not be modified once declared.
+
+```
+Tip:
+Method arguments can be marked as final to avoid getting their value changed inside the method's scope
+```
+### Pass by Reference or Pass by Value?
+**Java is always pass by value.** Mutable arguments, can get their values changed. But that doesn't mean Java is pass by reference. Because the reference to the object never changes. It's only the values that are mutated. This can be explained easily with primitive data passed to methods, which never gets changed.
+
 ### System object
+The System class contains several useful class fields and methods. It cannot be instantiated.
+
+It provides options like accessing Standard Inputstream, Outputstream, Garbage Collection, Time, Environment variables, System proerties etc.
+
 ### Deep copy vs Shallow copy
-### References
+Java provides `clone()` for all the Objects, which can be used to clone an object (The class should implement `Cloneable` interface). But there is a catch, it will work very well for immutable and primitive fields. When the cloned object modifies the refered mutable object, it also changes the original object's fields since the cloning copies only the references. This is Shallow Copy.
+
+```java
+class Car implements Cloneable{
+    int no;
+    String model;
+    Engine engine;
+    final int num = 1000;
+    
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+}
+
+class Engine{
+    String make;
+}
+
+//Execution
+Car car1 = new Car();
+car1.no = 100;
+car1.model = "Benz";
+
+Engine engine = new Engine();
+engine.make = "2020";
+car1.engine = engine;
+
+Car car2 = (Car) car1.clone();
+
+System.out.println("Car 1: "+car1.no+" "+car1.engine.make);
+System.out.println("Car 2: "+car2.num+" "+car2.engine.make);
+car2.engine.make = "2021";
+System.out.println("Car 1: "+car1.no+" "+car1.engine.make);
+
+/* Output
+
+Car 1: 100 2020
+Car 2: 1000 2020
+Car 1: 100 2021
+
+*/
+
+```
+
+Deep Copy on the other side, copies all the fields recursively and copies the values into the new object. So there will not be any references maintained. This process is slower than Shallow Copy and tedious to implement. There are libraries to implement
+
+### References **
+Supported References:
+1. Strong Reference
+2. Weak Reference
+3. Soft Reference
+4. Phantom Reference
+
+Strong Reference:
+Whenever we create an object and assign it, it will be a strong reference by default.
+
+```java
+Employee emp = new Employee();
+```
+
+Here `emp` is strong referenced and it can't be garbage collected until the reference becomes null.
+
+```java
+emp = null;
+```
+
+Weak Reference:  
+This can be created by creating from `java.lang.ref.WeakReference` explicitly. Any object with weak reference will be marked for garbage collection, and whenever the system needs memory this object will be Garbage collected.
+
+```java
+// Strong Reference
+Employee emp = new Employee();
+
+WeakReference<Employee> weakref = new WeakReference<Employee>(emp);
+
+//Now, emp is ready to be garbage collected when JVM needs memory
+emp = null;
+
+// But we can retrieve back the weakly referenced object. if its not Garbage collected
+emp = weakref.get();
+```
+
+Soft Reference:  
+This can be created using `java.lang.ref.SoftReference`. Only difference from Weak reference is, here the object will be garbage collected only when JVM runs out of memory (Not during normal garbage collection).
+
+
+Phantom Reference:
+This can be created using `java.lang.ref.PhantomReference`. Before garbage collection, the object will be put in a reference queue.
 
 ### Decompiling
+When Java compiles, it creates bytecode (`.class` files) from the `.java` files. The class files are not human readable.
+
+There are times we may need to decompile for debug or peek into the libraries that doesn't come with documentation. We can decompile the class files into java files back to read through (unless the source code is obfuscated). This can be done in Eclipse IDE using a plugin called `Enhanced Class Decompiler (ECD)`. IntelliJ IDEA provides this by default.
+
+I personally prefer [JD-GUI](http://java-decompiler.github.io/) for decompiling the jar files.
+
 ## Serialization
 ## I/O
 ### Stream vs Reader
