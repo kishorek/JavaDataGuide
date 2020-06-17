@@ -1,4 +1,4 @@
-There are many good technical articles are written in Chinese. This is an attempt inspired by the following articles:
+There are many good technical articles are written in Chinese. This is an attempt inspired by the following repos:
 
 * [Snailclimb/JavaGuide](https://github.com/Snailclimb/JavaGuide)
 
@@ -17,10 +17,11 @@ Table of contents:
 - Microservices
 - Distributed
     - Elasticsearch
-    - RPC
-    - Message Queue
-    - Distributed ID
-    - Distributed Current limiting
+    - [Intro](distributed/intro.md)
+    - [RPC](distributed/rpc.md)
+    - [Message Queue](distributed/message_queue.md)
+    - [Distributed ID](distributed/distributed_id.md)
+    - [Distributed Current limiting](distributed/distributed_limit.md)
     - Idempotency of distributed interfaces
     - Database extension
     - Zookeeper

@@ -476,5 +476,7 @@ There are times we may need to decompile for debug or peek into the libraries th
 I personally prefer [JD-GUI](http://java-decompiler.github.io/) for decompiling the jar files.
 
 ## Serialization
+
+
 ## I/O
 ### Stream vs Reader
