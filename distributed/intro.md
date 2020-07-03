@@ -32,7 +32,7 @@ CAP theorem states that a distributed data store cannot simultaneously be consis
 ## BASE Theory
 - **B**asically **A**vailable — The system always returns a response.
 - **S**oft state — The system could change over time, even during times of no input (due to eventual consistency).
-- **E**ventual #consistency — In the absence of input, the data will spread to every node sooner or later — thus becoming consistent.
+- **E**ventual consistency — In the absence of input, the data will spread to every node sooner or later — thus becoming consistent.
 
 ## Categories
 
@@ -72,9 +72,28 @@ MapReduce libraries are written in many languages. Most familiar one is Apache H
 Other architectures that are becoming more popular like Lambda Architecture (performs both batch & stream processing). This has brought the new tools like Apache Kafka, Apache Storm, Apache Samza
 
 ### Distributed Messaging
+Messaging systems provide a central place for the storage and propagation of messages/events inside your overall system. They allow you to decouple your application logic from directly talking with your other systems.
+
+The system that generates the message is called as a Producer and the system that receives the message is called as a Consumer. The message is usually broadcast and the subscribed consumers receives the message. This is very useful to store the data in multiple places. 
+
+Some of the popular platforms/libraries are:
+
+**RabbitMQ**:
+RabbitMQ is lightweight and easy to deploy on premises and in the cloud. It supports multiple messaging protocols. RabbitMQ can be deployed in distributed and federated configurations to meet high-scale, high-availability requirements. It tightly keeps track of the messages and uses a push model for notifying the consumers. It is one of the easiest Message broker with a lot of finer controls, support for routes and configurations.
+
+**Kafka**:
+This is a bit lower level, as in it does not keep track of which messages have been read and does not allow for complex routing logic. This helps it achieve amazing performance. This has a wide developer community.
+
+**Apache ActiveMQ**:
+The oldest Message Broker, which uses JMS API. It was used in Java EE applications.
+
+**Amazon SQS**:
+This is a managed service provided by AWS. This offers SNS and MQ.
 
 ### Distributed Transactions
+A distributed transaction can be performed via distributed ledger which is an immutable, append-only database that is replicated, synchronized, and shared across all nodes in the distributed network.
 
+Blockchain, Bitcoin are some of the examples of it.
 
 
 Ref: [A Thorough Introduction to Distributed Systems](https://medium.com/better-programming/a-thorough-introduction-to-distributed-systems-3b91562c9b3c)
