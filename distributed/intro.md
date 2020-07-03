@@ -32,8 +32,8 @@ CAP theorem states that a distributed data store cannot simultaneously be consis
 ## BASE Theory
 - **B**asically **A**vailable — The system always returns a response.
 - **S**oft state — The system could change over time, even during times of no input (due to eventual consistency).
-- **E**ventual consistency — In the absence of input, the data will spread to every node sooner or later — thus becoming consistent.
-- 
+- **E**ventual #consistency — In the absence of input, the data will spread to every node sooner or later — thus becoming consistent.
+
 ## Categories
 
 ### Distributed Storage
