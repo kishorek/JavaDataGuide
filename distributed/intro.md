@@ -25,14 +25,14 @@ Consistancy - Availability - Partition Tolerance
 
 CAP theorem states that a distributed data store cannot simultaneously be consistent, available, and partition-tolerant.
 
--  Consistency - The data written to the store, should be available as soon as we read.
--  Availability - Even if a single node fails, other nodes will keep the whole system alive.
--  Partition Tolerance - The system continues to function and uphold its consistency/availability guarantees, in spite of network partitions.
+-  **C**onsistency - The data written to the store, should be available as soon as we read.
+-  **A**vailability - Even if a single node fails, other nodes will keep the whole system alive.
+-  **P**artition Tolerance - The system continues to function and uphold its consistency/availability guarantees, in spite of network partitions.
 
 ## BASE Theory
-- Basically Available — The system always returns a response.
-- Soft state — The system could change over time, even during times of no input (due to eventual consistency).
-- Eventual consistency — In the absence of input, the data will spread to every node sooner or later — thus becoming consistent.
+- **B**asically **A**vailable — The system always returns a response.
+- **S**oft state — The system could change over time, even during times of no input (due to eventual consistency).
+- **E**ventual consistency — In the absence of input, the data will spread to every node sooner or later — thus becoming consistent.
 - 
 ## Categories
 
