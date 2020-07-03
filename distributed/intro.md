@@ -48,9 +48,33 @@ Some distributed databases that prefer stronger consistency: **HBase, Couchbase,
 **Consensus**:
 Consensus involves multiple nodes/servers agreeing on values. This is actually tricky and there are consensus algorithms that can help taking decisions
 
+### Distributed File Systems
+Distributed file systems are just like distributed databases, storing and accessing large amount of data across cluster of machines. They compliment distributed computing.
+
+**HDFS**
+Hadoop Distributed File System (HDFS) is the distributed file system used for distributed computing via the Hadoop framework. It is used to store and replicate large files (GB or TB in size) across many machines.
+
+This architecture contains NameNodes and DataNodes. NameNodes contains the metadata about the cluster and information about which data is stored where. DataNodes stores the data in blocks.
+
+**IPFS**
+Interplanetary File System (IPFS) is a peer-to-peer protocol/network for a distributed file system. Leveraging blockchain technology, it boasts a completely decentralized architecture with no single owner nor point of failure.
+
 ### Distributed Computing
+Distributed computing is distributing the processing into multiple nodes/servers. i.e. Splitting an enormous task (which may be very difficult for a single system to process) in to multiple minor tasks and getting it processed by multiple computers. This approach will help to scale horizontally, when the task is bigger increase the nodes.
+
+**MapReduce** :
+MapReduce is a distributed computing programming model. As the name indicates, it performs 2 operations. Mapping (filtering and/or sorting) the data and reducing it into a final desired outcome. The "MapReduce System" orchestrates the processing, running the various tasks in parallel, managing all communications and data transfers between the various parts of the system, and providing for redundancy and fault tolerance.
+
+Assuming the data is stored across multiple databases in a warehouse, there will multiple map jobs created to fetch data from its assigned database. Each map job will transform as much data as it can. Then Shuffle, Sort and Partition are done before the job is sent to appropriate reduce job.
+
+MapReduce libraries are written in many languages. Most familiar one is Apache Hadoop. MapReduce is initially created by Google.
+
+Other architectures that are becoming more popular like Lambda Architecture (performs both batch & stream processing). This has brought the new tools like Apache Kafka, Apache Storm, Apache Samza
 
 ### Distributed Messaging
+
 ### Distributed Transactions
+
+
 
 Ref: [A Thorough Introduction to Distributed Systems](https://medium.com/better-programming/a-thorough-introduction-to-distributed-systems-3b91562c9b3c)
