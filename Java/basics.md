@@ -15,7 +15,7 @@
   - [Access Modifiers](#access-modifiers)
   - [Other modifiers](#other-modifiers)
   - [Static](#static)
-  - [Deconstructing the main](#deconstructing-the-main)](#deconstructing-the-maindeconstructing-the-main)
+  - [Deconstructing the main](#deconstructing-the-main)
   - [Interning](#interning)
   - [Mutable & Immutable](#mutable--immutable)
   - [StingBuilder vs StringBuffer and immutability](#stingbuilder-vs-stringbuffer-and-immutability)
